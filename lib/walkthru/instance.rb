@@ -1,4 +1,5 @@
 require 'highline'
+require 'walkthru/matchers'
 
 module Walkthru
   class Instance

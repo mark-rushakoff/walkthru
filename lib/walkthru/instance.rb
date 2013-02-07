@@ -14,5 +14,9 @@ module Walkthru
         q.echo = false
       end
     end
+
+    def say(message)
+      @highline.say message
+    end
   end
 end

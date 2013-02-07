@@ -23,4 +23,14 @@ describe Walkthru::Instance do
       stdin.should be_eof
     end
   end
+
+  describe '#say' do
+    it 'delegates to the highline instance' do
+      _, _, walkthru = prepare_instance
+
+      walkthru.highline.should_receive(:say).with('fuzzy rabbits')
+
+      walkthru.say('fuzzy rabbits')
+    end
+  end
 end

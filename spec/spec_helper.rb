@@ -12,3 +12,10 @@ def prepare_instance
 
   [stdin, stdout, walkthru]
 end
+
+def eof_ok &block
+  begin
+    block.call
+  rescue EOFError
+  end
+end

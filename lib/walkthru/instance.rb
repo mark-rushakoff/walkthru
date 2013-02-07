@@ -18,5 +18,17 @@ module Walkthru
     def say(message)
       @highline.say message
     end
+
+    def yes_no(message)
+      @highline.agree(message) do |q|
+        q.default = 'y'
+      end
+    end
+
+    def no_yes(message)
+      @highline.agree(message) do |q|
+        q.default = 'n'
+      end
+    end
   end
 end

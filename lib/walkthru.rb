@@ -1,4 +1,8 @@
 require 'walkthru/instance'
+require 'logging'
+
+Logging.logger.root.level = :warn
+Logging.logger.root.appenders = Logging.appenders.stderr
 
 module Walkthru
   def self.create(opts = {})

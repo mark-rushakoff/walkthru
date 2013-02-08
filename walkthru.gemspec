@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency('highline', '~> 1.6')
+  gem.add_dependency('logging', '~> 1.8')
 
   gem.add_development_dependency('rspec', '~> 2.12')
 end

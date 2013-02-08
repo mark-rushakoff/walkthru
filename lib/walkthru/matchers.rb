@@ -13,6 +13,8 @@ module Walkthru
                    :unknown
                  end
 
+        Logging.logger[self].debug "Parsed text '#{text}' as :#{answer}"
+
         YesNoUnknown.new(answer)
       end
     end

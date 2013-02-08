@@ -21,15 +21,33 @@ module Walkthru
     end
 
     def yes_no(message)
-      @highline.agree(message) do |q|
-        q.default = 'y'
+      answer = @highline.ask("#{message} [Yn]") do |q|
+        validate_question_is_yes_no(q)
       end
+
+      yn = Walkthru::Matchers.yes_no(answer)
+      yn.yes? || yn.empty?
     end
 
     def no_yes(message)
-      @highline.agree(message) do |q|
-        q.default = 'n'
+      answer = @highline.ask("#{message} [yN]") do |q|
+        validate_question_is_yes_no(q)
       end
+
+      yn = Walkthru::Matchers.yes_no(answer)
+      yn.yes?
+    end
+
+    private
+    def validate_question_is_yes_no(question)
+      question.validate do |answer|
+        yn = Walkthru::Matchers.yes_no(answer)
+        !(yn.unknown?)
+      end
+    end
+
+    def suppress_echo(question)
+      question.echo = false
     end
   end
 end

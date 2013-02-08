@@ -30,7 +30,7 @@ describe Walkthru::Instance do
 
       eof_ok { walkthru.yes_no 'some question here' }
 
-      stdout.string.should match /some question here/
+      stdout.string.should include 'some question here [Yn]'
     end
 
     it 'treats y as true' do
@@ -54,7 +54,7 @@ describe Walkthru::Instance do
       stdin.write "\n"
       stdin.rewind
 
-      walkthru.yes_no('whatever').should be_true
+      walkthru.yes_no('').should be_true
     end
   end
 
@@ -64,7 +64,7 @@ describe Walkthru::Instance do
 
       eof_ok { walkthru.no_yes 'some question here' }
 
-      stdout.string.should match /some question here/
+      stdout.string.should include 'some question here [yN]'
     end
 
     it 'treats y as true' do
@@ -83,7 +83,7 @@ describe Walkthru::Instance do
       walkthru.no_yes('whatever').should be_false
     end
 
-    it 'defaults to true' do
+    it 'defaults to false' do
       stdin, _, walkthru = prepare_instance
       stdin.write "\n"
       stdin.rewind

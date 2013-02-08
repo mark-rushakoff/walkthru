@@ -3,7 +3,9 @@ module Walkthru
     class << self
       def yes_no(text)
         answer = case text
-                 when /^y(es)?$/i, /^$/
+                 when /^$/
+                   :empty
+                 when /^y(es)?$/i
                    :yes
                  when /^no?$/i
                    :no
@@ -17,9 +19,9 @@ module Walkthru
 
     private
     class YesNoUnknown
-      VALID_ANSWERS = [:yes, :no, :unknown].freeze
+      VALID_ANSWERS = [:yes, :no, :empty, :unknown].freeze
       def initialize(answer)
-        raise 'Invalid input' unless VALID_ANSWERS.include? answer
+        raise "Cannot initialize with :#{answer}" unless VALID_ANSWERS.include? answer
         @answer = answer
       end
 
@@ -33,6 +35,10 @@ module Walkthru
 
       def unknown?
         @answer == :unknown
+      end
+
+      def empty?
+        @answer == :empty
       end
     end
   end

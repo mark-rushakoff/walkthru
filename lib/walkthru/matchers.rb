@@ -2,7 +2,7 @@ module Walkthru
   module Matchers
     class << self
       def yes_no(text)
-        answer = case text
+        answer = case text.gsub("\r", '')
                  when /^$/
                    :empty
                  when /^y(es)?$/i
@@ -13,7 +13,7 @@ module Walkthru
                    :unknown
                  end
 
-        Logging.logger[self].debug "Parsed text '#{text}' as :#{answer}"
+        Logging.logger[self].debug "Parsed text '#{text.inspect}' as :#{answer}"
 
         YesNoUnknown.new(answer)
       end

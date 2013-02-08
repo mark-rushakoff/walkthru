@@ -40,10 +40,15 @@ module Walkthru
 
     private
     def validate_question_is_yes_no(question)
-      question.validate do |answer|
+      question.validate = lambda do |answer|
         yn = Walkthru::Matchers.yes_no(answer)
         !(yn.unknown?)
       end
+
+      question.responses[:not_valid] = question.question
+      question.character = true
+      question.echo = false
+      question.overwrite = true
     end
 
     def suppress_echo(question)

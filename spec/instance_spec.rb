@@ -26,9 +26,11 @@ describe Walkthru::Instance do
 
   describe '#yes_no' do
     it 'asks the question' do
-      _, stdout, walkthru = prepare_instance
+      stdin, stdout, walkthru = prepare_instance
+      stdin.write("\n")
+      stdin.rewind
 
-      eof_ok { walkthru.yes_no 'some question here' }
+      walkthru.yes_no 'some question here'
 
       stdout.string.should include 'some question here [Yn]'
     end
@@ -60,9 +62,11 @@ describe Walkthru::Instance do
 
   describe '#no_yes' do
     it 'asks the question' do
-      _, stdout, walkthru = prepare_instance
+      stdin, stdout, walkthru = prepare_instance
+      stdin.write("\n")
+      stdin.rewind
 
-      eof_ok { walkthru.no_yes 'some question here' }
+      walkthru.no_yes 'some question here'
 
       stdout.string.should include 'some question here [yN]'
     end
